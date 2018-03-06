@@ -1,0 +1,41 @@
+package com.pau_e.shoppinglist;
+
+import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.text.Layout;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+
+import java.util.List;
+
+/**
+ * Created by pau_e on 06/03/2018.
+ */
+
+public class ShoppingListAdapter extends ArrayAdapter<String> {
+    public ShoppingListAdapter(@NonNull Context context, int resource, @NonNull List<String> objects) {
+        super(context, resource, objects);
+    }
+
+    @NonNull
+    @Override
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        // 1. Crear un nou View si és necessari (no cal si convertView no és null)
+        View root = convertView; //arrel d'un item de la llista
+        if (root == null){
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            root = inflater.inflate(R.layout.shopping_item, parent, false);
+        }
+
+        CheckBox checkBox =  root.findViewById(R.id.checkBox);
+        String item = getItem(position);
+        checkBox.setText(item);
+
+        return root;
+
+    }
+}
