@@ -3,6 +3,7 @@ package com.pau_e.shoppinglist;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -28,8 +29,24 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         list = (ListView) findViewById(R.id.list);
         new_item = (EditText) findViewById(R.id.new_item);
+
         adapter = new ShoppingListAdapter(this, R.layout.shopping_item, items);
         list.setAdapter(adapter);
+
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                onRemoveItem(pos);
+                return true;
+            }
+        });
+
+
+    }
+
+    private void onRemoveItem(int pos) {
+        items.remove(pos);
+        adapter.notifyDataSetChanged();
     }
 
     public void OnAddItem(View view) {
